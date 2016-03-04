@@ -18,7 +18,7 @@ class Luajit2File(CoalFile):
         src_path = 'src/LuaJIT-%s/src/' % self.version
         cp(src_path + '*.a', 'libs/')
         cp(src_path + '*.dll', 'libs/')
-        cp(src_path + '*.h', 'include')
+        cp(src_path + '*.h', 'include/')
     def info(self, generator):
         generator.add_library('-lluajit')
         generator.add_link_dir('libs/')
