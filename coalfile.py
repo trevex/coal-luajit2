@@ -1,5 +1,5 @@
 from coal import CoalFile
-from util import download, unzip, cp, run
+from util import download, unzip, cp, run, cd
 from os import path
 
 class Luajit2File(CoalFile):
@@ -12,7 +12,8 @@ class Luajit2File(CoalFile):
         download(self.url, self.zipfile)
         unzip(self.zipfile, 'src')
     def build(self):
-        run('make')
+        with cd('src/'):
+            run('make')
     def package(self):
         cp('src/src/*.a', 'libs/')
         cp('src/src/*.dll', 'libs/')
