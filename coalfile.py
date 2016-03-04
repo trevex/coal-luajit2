@@ -12,12 +12,13 @@ class Luajit2File(CoalFile):
         download(self.url, self.zipfile)
         unzip(self.zipfile, 'src')
     def build(self):
-        with cd('src/'):
+        with cd('src/LuaJIT-%s' % version):
             run('make')
     def package(self):
-        cp('src/src/*.a', 'libs/')
-        cp('src/src/*.dll', 'libs/')
-        cp('src/src/*.h', 'include')
+        src_path = 'src/LuaJIT-%s/src/'
+        cp(src_path + '*.a', 'libs/')
+        cp(src_path + '*.dll', 'libs/')
+        cp(src_path + '*.h', 'include')
     def info(self, generator):
         generator.add_library('-lluajit')
         generator.add_link_dir('libs/')
