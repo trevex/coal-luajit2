@@ -1,5 +1,5 @@
 from coal import CoalFile
-from util import download, unzip, cp, run, cd
+from util import download, unzip, cp, run, cd, system
 from os import path
 
 class Luajit2File(CoalFile):
@@ -20,6 +20,9 @@ class Luajit2File(CoalFile):
         cp(src_path + '*.dll', 'libs/')
         cp(src_path + '*.h', 'include/')
     def info(self, generator):
-        generator.add_library('-lluajit')
+        if system() == 'Windows':
+            generator.add_library('-llua51')
+        else:
+            generator.add_library('-lluajit')
         generator.add_link_dir('libs/')
         generator.add_include_dir('include/')
